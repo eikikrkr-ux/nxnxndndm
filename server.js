@@ -15,6 +15,8 @@ app.get("/getLast", (req, res) => {
     res.json(lastLog || {});
 });
 
-app.listen(3000, () => {
-    console.log("Server started");
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+    console.log("Server started on port " + PORT);
 });
