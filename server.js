@@ -3,16 +3,24 @@ const app = express();
 
 app.use(express.json());
 
-let lastLog = null;
+let logs = [];
 
 app.post("/log", (req, res) => {
-    lastLog = req.body;
-    console.log("LOG:", lastLog);
+    const newLog = req.body;
+    
+    
+    logs.push(newLog);
+    if (logs.length > 50) {
+        logs.shift(); 
+    }
+
+    console.log("LOG:", newLog);
     res.sendStatus(200);
 });
 
 app.get("/getLast", (req, res) => {
-    res.json(lastLog || {});
+    
+    res.json(logs);
 });
 
 const PORT = process.env.PORT || 3000;
